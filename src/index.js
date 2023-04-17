@@ -9,11 +9,14 @@ import getStore from "./store/getStore";
 
 // import main sass file
 import "./sass/app.scss";
+import { AppProvider } from "hooks";
 
 ReactDOM.render(
   <React.StrictMode>
     <ReduxProvider store={getStore(reducers)}>
-      <Main />
+      <AppProvider>
+        <Main />
+      </AppProvider>
     </ReduxProvider>
   </React.StrictMode>,
   document.getElementById("root")

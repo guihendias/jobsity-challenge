@@ -1,0 +1,35 @@
+.modal-content {
+    background-color: #fff;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    margin: auto;
+    max-width: 30rem;
+    padding: 1rem;
+
+    margin-top: 50vh;
+    transform: translateY(-50%);
+
+    #close-btn {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 0.5rem;
+        margin: 1rem 0;
+
+        button {
+            font-size: 1rem;
+            font-weight: 700;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+    }
+}
