@@ -16,15 +16,14 @@ const CalendarDay = ({
 }) => {
   const [open, setOpen] = useState(false);
   const [selectedReminder, setSelectedReminder] = useState(null);
-  const { fetchReminders } = useReminders();
 
-  const Icon = (name) => {
+  const Icon = ({ name }) => {
     if (name === "rain") {
       return <CloudRain />;
-    } else if (name === "clear") {
-      return <Sun />;
-    } else {
+    } else if (name === "cloudy") {
       return <Cloud />;
+    } else {
+      return <Sun />;
     }
   };
 
@@ -51,10 +50,7 @@ const CalendarDay = ({
               <div
                 className="calendar-day-reminder"
                 key={reminder.time}
-                onClick={() => {
-                  console.log("Reminder clicked: ");
-                  setSelectedReminder(reminder);
-                }}
+                onClick={() => setSelectedReminder(reminder)}
               >
                 {reminder.reminder}
                 <Icon name={reminder.icon} />

@@ -22,26 +22,27 @@ function RemindersProvider({ children }) {
     return data.days.find((w) => dayjs(w.datetime).isSame(queryDate));
   };
 
-  function fetchReminders() {
+  async function fetchReminders() {
     const storagedReminders =
       localStorage.getItem("@jobsity-calendar/reminders") || "[]";
 
     const parsedReminders = JSON.parse(storagedReminders);
 
-    const remindersWithIcons = parsedReminders.map((reminder) => {
-      const date = reminder.date;
-      const month = String(date.month).padStart(2, "0");
-      const day = String(date.day).padStart(2, "0");
-      const year = date.year;
+    const remindersWithIcons = await Promise.all(
+      parsedReminders.map(async (reminder) => {
+        const date = dayjs(reminder.date);
+        const month = date.get("month");
+        const day = date.get("day");
+        const year = date.get("year");
 
-      const queryDate = `${year}-${month}-${day}`;
-      const city = "indaiatuba";
+        const queryDate = `${year}-${month}-${day}`;
 
-      // const weatherDayData = await loadWeatherData(queryDate, city);
-      const weatherDayData = "rain";
+        const weatherDayData = await loadWeatherData(queryDate, reminder.city);
 
-      return { ...reminder, icon: weatherDayData.icon };
-    });
+        return { ...reminder, icon: weatherDayData.icon };
+      })
+    );
+    console.log(remindersWithIcons);
 
     setReminders(remindersWithIcons);
   }
